@@ -14,7 +14,7 @@ env:
 before_install:
   - function osx() { [[ "$TRAVIS_OS_NAME" == "osx" ]]; }
   - function linux() { [[ "$TRAVIS_OS_NAME" == "linux" ]]; }
-  - if osx; then brew update && brew install gcc && CC=gcc; fi
+  - if osx; then brew update && brew install gcc5; fi
 install:
   - mkdir -p ~/otp
   - cd ~/otp
