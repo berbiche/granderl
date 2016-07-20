@@ -11,8 +11,10 @@ env:
   - OTP_RELEASE=18.3 CC=gcc-5 IMPLEMENTATION=pcg32
 install:
   - mkdir -p ~/otp
-  - wget https://s3.amazonaws.com/travis-otp-releases/binaries/$(lsb_release -is | tr "A-Z" "a-z")/$(lsb_release -rs)/$(uname -m)/erlang-${OTP_RELEASE}-nonroot.tar.bz2 || (curl -O https://raw.githubusercontent.com/kerl/kerl/master/kerl && chmod a+x kerl && travis_wait 30 ./kerl build $OTP_RELEASE $OTP_RELEASE && ./kerl install $OTP_RELEASE ~/otp/$OTP_RELEASE)
+  - cd ~/otp
+  - (wget https://s3.amazonaws.com/travis-otp-releases/binaries/$(lsb_release -is | tr "A-Z" "a-z")/$(lsb_release -rs)/$(uname -m)/erlang-${OTP_RELEASE}-nonroot.tar.bz2 && tar xjf erlang-${OTP_RELEASE}-nonroot.tar.bz2) || (curl -O https://raw.githubusercontent.com/kerl/kerl/master/kerl && chmod a+x kerl && travis_wait 60 ./kerl build $OTP_RELEASE $OTP_RELEASE && ./kerl install $OTP_RELEASE ~/otp/$OTP_RELEASE)
   - source ~/otp/${OTP_RELEASE}/activate
+  - cd -
   - export DIEHARDER=dieharder-3.31.1
   - wget https://www.phy.duke.edu/~rgb/General/dieharder/$DIEHARDER.tgz
   - tar xzf $DIEHARDER.tgz
