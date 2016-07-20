@@ -2,13 +2,15 @@ os:
   - linux
   - osx
 language: c
+compiler:
+  - gcc-5
 cache:
   directories:
     - $HOME/otp
 env:
-  - OTP_RELEASE=18.3 CC=gcc-5 IMPLEMENTATION=rdrand
-  - OTP_RELEASE=18.3 CC=gcc-5 IMPLEMENTATION=xorshift
-  - OTP_RELEASE=18.3 CC=gcc-5 IMPLEMENTATION=pcg32
+  - OTP_RELEASE=18.3 IMPLEMENTATION=rdrand
+  - OTP_RELEASE=18.3 IMPLEMENTATION=xorshift
+  - OTP_RELEASE=18.3 IMPLEMENTATION=pcg32
 install:
   - mkdir -p ~/otp
   - cd ~/otp
@@ -30,6 +32,7 @@ script:
   - ./rebar3 as test proper
   - ./dieharder.sh
 dist: trusty
+sudo: required
 group: edge
 notifications:
   email: false
