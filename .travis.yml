@@ -45,4 +45,3 @@ addons:
     packages:
       - gcc-5
       - libgsl0-dev
-      - perf
