@@ -8,9 +8,20 @@ cache:
   directories:
     - $HOME/otp
 env:
-  - OTP_RELEASE=18.3 IMPLEMENTATION=rdrand
-  - OTP_RELEASE=18.3 IMPLEMENTATION=xorshift
-  - OTP_RELEASE=18.3 IMPLEMENTATION=pcg32
+  global:
+    - OTP_RELEASE=18.3
+matrix:
+  include:
+    - os: linux
+      env: IMPLEMENTATION=rdrand
+    - os: linux
+      env: IMPLEMENTATION=xorshift
+    - os: linux
+      env: IMPLEMENTATION=pcg32
+    - os: osx
+      env: IMPLEMENTATION=xorshift
+    - os: osx
+      env: IMPLEMENTATION=pcg32
 before_install:
   - function osx() { [[ "$TRAVIS_OS_NAME" == "osx" ]]; }
   - function linux() { [[ "$TRAVIS_OS_NAME" == "linux" ]]; }
