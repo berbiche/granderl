@@ -22,6 +22,8 @@ matrix:
     - os: osx
       env: IMPLEMENTATION=pcg32
       compiler: gcc-5
+  exclude:
+    - compiler: gcc-5
 before_install:
   - function osx() { [[ "$TRAVIS_OS_NAME" == "osx" ]]; }
   - function linux() { [[ "$TRAVIS_OS_NAME" == "linux" ]]; }
