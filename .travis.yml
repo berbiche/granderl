@@ -31,8 +31,8 @@ before_install:
 install:
   - mkdir -p ~/otp
   - cd ~/otp
-  - if linux; then wget https://s3.amazonaws.com/travis-otp-releases/binaries/$(lsb_release -is | tr "A-Z" "a-z")/$(lsb_release -rs)/$(uname -m)/erlang-${OTP_RELEASE}-nonroot.tar.bz2 && tar xjf erlang-${OTP_RELEASE}-nonroot.tar.bz2; fi
-  - if osx; then curl -O https://raw.githubusercontent.com/kerl/kerl/master/kerl && chmod a+x kerl && travis_wait 60 ./kerl build $OTP_RELEASE $OTP_RELEASE && ./kerl install $OTP_RELEASE ~/otp/$OTP_RELEASE; fi
+  - if linux && [ ! -e ~/otp/${OTP_RELEASE}/activate ]; then wget https://s3.amazonaws.com/travis-otp-releases/binaries/$(lsb_release -is | tr "A-Z" "a-z")/$(lsb_release -rs)/$(uname -m)/erlang-${OTP_RELEASE}-nonroot.tar.bz2 && tar xjf erlang-${OTP_RELEASE}-nonroot.tar.bz2; fi
+  - if osx && [ ! -e ~/otp/${OTP_RELEASE}/activate ]; then curl -O https://raw.githubusercontent.com/kerl/kerl/master/kerl && chmod a+x kerl && travis_wait 60 ./kerl build $OTP_RELEASE $OTP_RELEASE && ./kerl install $OTP_RELEASE ~/otp/$OTP_RELEASE; fi
   - source ~/otp/${OTP_RELEASE}/activate
   - cd -
   - if linux; then export DIEHARDER=dieharder-3.31.1; wget http://www.phy.duke.edu/~rgb/General/dieharder/$DIEHARDER.tgz && tar xzf $DIEHARDER.tgz && cd $DIEHARDER && ./configure --prefix=$TRAVIS_BUILD_DIR && make && make install && PATH=$PATH:$TRAVIS_BUILD_DIR/bin && cd ..; fi
