@@ -1,6 +1,5 @@
 language: c
-compiler:
-  - gcc-5
+compiler: gcc-5
 cache:
   directories:
     - $HOME/otp
