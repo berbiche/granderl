@@ -1,5 +1,4 @@
 language: c
-compiler: gcc-5
 cache:
   directories:
     - $HOME/otp
@@ -10,14 +9,19 @@ matrix:
   include:
     - os: linux
       env: IMPLEMENTATION=rdrand
+      compiler: gcc-5
     - os: linux
       env: IMPLEMENTATION=xorshift
+      compiler: gcc-5
     - os: linux
       env: IMPLEMENTATION=pcg32
+      compiler: gcc-5
     - os: osx
       env: IMPLEMENTATION=xorshift
+      compiler: gcc-5
     - os: osx
       env: IMPLEMENTATION=pcg32
+      compiler: gcc-5
 before_install:
   - function osx() { [[ "$TRAVIS_OS_NAME" == "osx" ]]; }
   - function linux() { [[ "$TRAVIS_OS_NAME" == "linux" ]]; }
